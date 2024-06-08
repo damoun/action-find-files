@@ -1,0 +1,28 @@
+name: 'Find files'
+description: 'Find files in the repository'
+author: 'Damien Plénard'
+
+inputs:
+  pattern:
+    description: 'The pattern to search filename for'
+    default: '*.yaml'
+  path:
+    description: 'The path to search files in'
+    default: '.'
+
+outputs:
+  files:
+    description: 'The list of files found'
+    value: ${{ steps.find-files.outputs.files }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Find files
+      id: find-files
+      shell: bash
+      run: |
+        echo "files=$(
+          find '${{ inputs.path }}' -type f -name '${{ inputs.pattern }}' | \
+          jq -cnR '[inputs | select(length>0)]' \
+        )" >> $GITHUB_OUTPUT
