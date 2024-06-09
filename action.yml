@@ -2,6 +2,10 @@ name: 'Find files'
 description: 'Find files in the repository'
 author: 'Damien Plénard'
 
+branding:
+  icon: 'search'
+  color: 'blue'
+
 inputs:
   pattern:
     description: 'The pattern to search filename for'
