@@ -9,7 +9,7 @@ branding:
 inputs:
   pattern:
     description: 'The pattern to search filename for'
-    default: '*.yaml'
+    default: '.*ya?ml$'
   path:
     description: 'The path to search files in'
     default: '.'
@@ -27,6 +27,6 @@ runs:
       shell: bash
       run: |
         echo "files=$(
-          find '${{ inputs.path }}' -type f -name '${{ inputs.pattern }}' | \
+          find '${{ inputs.path }}' -type f -regex '${{ inputs.pattern }}' | \
           jq -cnR '[inputs | select(length>0)]' \
         )" >> $GITHUB_OUTPUT
